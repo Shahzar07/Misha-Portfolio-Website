@@ -10,17 +10,39 @@ export function Contact() {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [submittedName, setSubmittedName] = useState<string>('');
   const [nameInput, setNameInput] = useState('');
-  const [nextUrl, setNextUrl] = useState('');
 
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setNextUrl(`${window.location.origin}${window.location.pathname}?submitted=true`);
-      
-      const urlParams = new URLSearchParams(window.location.search);
-      if (urlParams.get('submitted') === 'true') {
+  // We will use Web3Forms instead of FormSubmit since FormSubmit is down.
+  // The user needs to provide their access key.
+  const WEB3FORMS_ACCESS_KEY = "3b8b37b8-b0e4-4fee-9ca5-cab974102019";
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    setStatus('loading');
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+    
+    // Append Web3Forms required fields
+    formData.append("access_key", WEB3FORMS_ACCESS_KEY);
+    formData.append("subject", `New Contact Form Submission from ${nameInput}`);
+    formData.append("from_name", nameInput);
+    formData.append("phone", phone || 'Not provided');
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
         setStatus('success');
-        const nameParam = urlParams.get('name');
-        if (nameParam) setSubmittedName(nameParam);
+        setSubmittedName(nameInput || 'there');
+        form.reset();
+        setPhone(undefined);
+        setNameInput('');
         
         // Trigger elegant confetti
         const duration = 3 * 1000;
@@ -48,23 +70,14 @@ export function Contact() {
             colors: ['#000000', '#333333', '#666666', '#999999', '#cccccc']
           });
         }, 250);
-
-        // Clean up URL
-        window.history.replaceState({}, document.title, window.location.pathname);
+      } else {
+        console.error("Web3Forms Error:", data);
+        setStatus('error');
       }
+    } catch (error) {
+      console.error("Submission Error:", error);
+      setStatus('error');
     }
-  }, []);
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-       setNextUrl(`${window.location.origin}${window.location.pathname}?submitted=true&name=${encodeURIComponent(nameInput)}`);
-    }
-  }, [nameInput]);
-
-  const handleSubmit = () => {
-    // We don't prevent default, we let the form submit natively to formsubmit.co
-    // This ensures the activation email is sent and the user sees the activation page.
-    setStatus('loading');
   };
 
   return (
@@ -108,15 +121,8 @@ export function Contact() {
           ) : (
             <form 
               className="flex flex-col gap-8" 
-              action="https://formsubmit.co/husainmurtazaupwork@gmail.com" 
-              method="POST"
               onSubmit={handleSubmit}
             >
-              <input type="hidden" name="_captcha" value="false" />
-              <input type="hidden" name="_subject" value="New Contact Form Submission" />
-              <input type="hidden" name="_next" value={nextUrl} />
-              <input type="hidden" name="phone" value={phone || 'Not provided'} />
-
               <div className="relative">
                 <input 
                   type="text" 
