@@ -47,7 +47,7 @@ export function PortfolioVault() {
   }, [activeCategory]);
 
   return (
-    <section id="portfolio" className="relative py-32 bg-[#0a0a0a] border-y border-white/5 overflow-hidden">
+    <section id="portfolio" className="relative py-24 md:py-32 bg-[#0a0a0a] border-y border-white/5 overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:40px_40px]"></div>
@@ -64,7 +64,7 @@ export function PortfolioVault() {
               The Vault
             </div>
             
-            <h2 className="font-display text-5xl md:text-6xl lg:text-7xl font-bold mb-6 tracking-tight leading-tight">
+            <h2 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 tracking-tight leading-tight">
               Engineered <br/>
               <span className="text-white/40">for scale.</span>
             </h2>
@@ -73,13 +73,13 @@ export function PortfolioVault() {
               Browse through my arsenal of enterprise-grade AI agents, workflow automations, and data extraction pipelines.
             </p>
             
-            <div className="flex flex-wrap gap-2 mb-12">
+            <div className="flex flex-wrap lg:flex-nowrap lg:overflow-x-visible overflow-x-auto pb-4 lg:pb-0 gap-2 mb-12 no-scrollbar scroll-smooth">
               {categories.map(category => (
                 <button
                   key={category}
                   onClick={() => setActiveCategory(category)}
                   className={cn(
-                    "px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 border",
+                    "px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 border whitespace-nowrap",
                     activeCategory === category 
                       ? "bg-white text-black border-white shadow-[0_0_20px_rgba(255,255,255,0.2)]" 
                       : "bg-[#111] text-white/60 border-white/10 hover:border-white/30 hover:text-white hover:bg-[#1a1a1a]"
@@ -105,7 +105,7 @@ export function PortfolioVault() {
 
           {/* Right Column */}
           <div className="lg:col-span-7 flex justify-center lg:justify-end w-full">
-            <AnimatedCardStack projects={filteredProjects} />
+            <AnimatedCardStack key={activeCategory} projects={filteredProjects} />
           </div>
 
         </div>

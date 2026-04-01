@@ -34,13 +34,13 @@ const services = [
 
 export function ServicesBento() {
   return (
-    <section id="services" className="py-32 px-6 max-w-7xl mx-auto">
-      <div className="mb-16">
+    <section id="services" className="py-24 md:py-32 px-6 max-w-7xl mx-auto">
+      <div className="mb-16 text-center md:text-left">
         <h2 className="font-display text-4xl md:text-5xl font-bold mb-4">The Engine.</h2>
-        <p className="text-white/50 text-lg max-w-xl">Architecting scalable, automated systems that eliminate manual work and accelerate growth.</p>
+        <p className="text-white/50 text-lg max-w-xl mx-auto md:mx-0">Architecting scalable, automated systems that eliminate manual work and accelerate growth.</p>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {services.map((service, i) => (
           <ServiceCard
             key={i}

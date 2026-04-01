@@ -93,7 +93,7 @@ function AnimatedCard({
         x: "-50%",
         bottom: 0,
       }}
-      className="absolute flex h-[320px] w-[320px] flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#111] p-3 shadow-2xl will-change-transform sm:w-[460px] sm:h-[380px]"
+      className="absolute flex h-[320px] w-[calc(100vw-48px)] max-w-[320px] flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#111] p-3 shadow-2xl will-change-transform sm:w-[460px] sm:h-[380px]"
     >
       <CardContent project={project} />
     </motion.div>
@@ -101,12 +101,8 @@ function AnimatedCard({
 }
 
 export function AnimatedCardStack({ projects }: AnimatedCardStackProps) {
-  const [queue, setQueue] = useState<Project[]>([])
+  const [queue, setQueue] = useState<Project[]>(projects)
   const [isAnimating, setIsAnimating] = useState(false)
-
-  useEffect(() => {
-    setQueue(projects.length > 0 ? projects : [])
-  }, [projects])
 
   const handleAnimate = () => {
     if (isAnimating || queue.length <= 1) return;

@@ -3,8 +3,8 @@ import { Counter } from './counter';
 
 export function Metrics() {
   return (
-    <section id="metrics" className="py-32 px-6 max-w-7xl mx-auto">
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 divide-x divide-white/5">
+    <section id="metrics" className="py-24 md:py-32 px-6 max-w-7xl mx-auto">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 md:divide-x divide-white/5">
         <div className="flex flex-col items-center text-center px-4">
           <div className="font-display text-5xl md:text-7xl font-bold mb-2">
             <Counter value={7} suffix="+" />

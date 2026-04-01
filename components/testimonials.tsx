@@ -65,7 +65,7 @@ const thirdColumn = testimonials.slice(6, 9);
 
 export function Testimonials() {
   return (
-    <section id="testimonials" className="py-32 bg-[#050505] border-y border-white/5 relative overflow-hidden">
+    <section id="testimonials" className="py-24 md:py-32 bg-[#050505] border-y border-white/5 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

@@ -81,10 +81,10 @@ export function Contact() {
   };
 
   return (
-    <section id="contact" className="py-32 bg-white text-black rounded-t-[3rem] md:rounded-t-[5rem] relative z-20 mt-[-2rem]">
-      <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16">
+    <section id="contact" className="py-24 md:py-32 bg-white text-black rounded-t-[2.5rem] md:rounded-t-[5rem] relative z-20 mt-[-2rem]">
+      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
         <div>
-          <h2 className="font-display text-5xl md:text-7xl font-bold tracking-tighter mb-8 leading-[1.1]">
+          <h2 className="font-display text-4xl sm:text-5xl md:text-7xl font-bold tracking-tighter mb-8 leading-[1.1]">
             Let&apos;s transform your workflow into a fully automated, AI-powered system.
           </h2>
           
